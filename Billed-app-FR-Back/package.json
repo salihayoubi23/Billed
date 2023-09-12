@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
+    "latest": "^0.2.0",
     "multer": "^1.4.3",
     "sequelize": "^6.9.0",
     "short-uuid": "^4.2.0",
