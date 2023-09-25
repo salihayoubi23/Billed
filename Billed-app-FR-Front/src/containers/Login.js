@@ -41,8 +41,9 @@ export default class Login {
     e.preventDefault()
     const user = {
       type: "Admin",
-      email: e.target.querySelector(`input[data-testid="employee-email-input"]`).value,
-      password: e.target.querySelector(`input[data-testid="employee-password-input"]`).value,
+      //L'erreur se trouve au niveau du data-testid qui indique "employee-email-input" et "employee-password-input" au lieu de admin
+      email: e.target.querySelector(`input[data-testid="admin-email-input"]`).value,
+      password: e.target.querySelector(`input[data-testid="admin-password-input"]`).value,
       status: "connected"
     }
     this.localStorage.setItem("user", JSON.stringify(user))
@@ -57,7 +58,6 @@ export default class Login {
         document.body.style.backgroundColor="#fff"
       })
   }
-
   // not need to cover this function by tests
   login = (user) => {
     if (this.store) {
