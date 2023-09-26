@@ -15,11 +15,23 @@ export default class NewBill {
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
   }
+
+  allowedExtensions(mimeType) {
+    return ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].includes(mimeType);
+  }
   handleChangeFile = e => {
     e.preventDefault()
-    const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
+    const input = this.document.querySelector(`input[data-testid="file"]`)
+    const file = input.files[0];
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
+// vérifiacation de l'extention de fichier 
+    if (!this.allowedExtensions(file.type)) {
+      input.value = "";
+      console.log("veuillez choisir un des format img" )
+      return;
+    }
+
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
     formData.append('file', file)
@@ -34,7 +46,6 @@ export default class NewBill {
         }
       })
       .then(({fileUrl, key}) => {
-        console.log(fileUrl)
         this.billId = key
         this.fileUrl = fileUrl
         this.fileName = fileName
@@ -60,6 +71,7 @@ export default class NewBill {
     this.updateBill(bill)
     this.onNavigate(ROUTES_PATH['Bills'])
   }
+
 
   // not need to cover this function by tests
   updateBill = (bill) => {
